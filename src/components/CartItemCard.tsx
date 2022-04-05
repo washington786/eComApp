@@ -5,30 +5,34 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import QuantitySelector from './QuantitySelector';
 import OutlinedButton from './OutlinedButtons';
 
-const CartItemCard = ({
-    title,
-    image,
-    price,
-    ratings, 
-    quantity,
-    color
-}) => {
-    const [cartQty,setQty] = useState(quantity)
+interface cartItemProps{
+    product:{
+        title: string,
+        image: string,
+        price: number,
+        quantity: number,
+        options: string,
+    }
+}
+const CartItemCard = ({product}: cartItemProps) => { 
+    const [cartQty,setQty] = useState(product.quantity)
 
   return (
     <View style={{position: 'relative', height: 170, borderBottomColor:'grey', borderBottomWidth:0.5, marginHorizontal:10, marginBottom:5}}>
         <View style={styles.card}>
+
             <View style={styles.imageCard}>
-                <Image source={{uri:image}} style={styles.image}/>
+                <Image source={{uri:product.image}} style={styles.image}/>
             </View>
+
             <View style={{flex:3, paddingHorizontal:2, position: 'relative', height: '100%',paddingTop: 7}}>
-                <Text style={styles.title} numberOfLines={3}>{title}</Text>
-                <Text style={styles.price}>Price: {"\t"}R{price}</Text>
+                <Text style={styles.title} numberOfLines={3}>{product.title}</Text>
+                <Text style={styles.price}>Price: {"\t"}R{product.price}</Text>
                 <Divider/>
                 <Text style={styles.qty}>Quantity: {"\t"}{cartQty}</Text>
                 <Divider/>
-                {color &&
-                <Text style={styles.qty}>Color: {"\t"}{color}</Text>}
+                {product.options &&
+                <Text style={styles.qty}>Options: {"\t"}{product.options}</Text>}
             </View>
             
         </View>
